@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcial 1 Ampliacio - Guia Visual</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffdf8;
+      --ink: #1f2937;
+      --muted: #5b6472;
+      --line: #d9cfbf;
+      --accent: #184e77;
+      --accent-2: #2d6a4f;
+      --accent-3: #b7791f;
+      --accent-4: #b23a48;
+      --shadow: 0 18px 40px rgba(45, 55, 72, 0.12);
+      --radius: 20px;
+      --nav-width: 280px;
+      --code-bg: #f3efe7;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Aptos", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(24, 78, 119, 0.1), transparent 34%),
+        radial-gradient(circle at top right, rgba(178, 58, 72, 0.09), transparent 28%),
+        linear-gradient(180deg, #f9f5ed 0%, var(--bg) 100%);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(240px, var(--nav-width)) 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100vh;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(93, 106, 120, 0.15);
+      background: rgba(255, 253, 248, 0.78);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand { margin-bottom: 26px; }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(24, 78, 119, 0.1);
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .brand h1 {
+      margin: 14px 0 8px;
+      font-size: 1.7rem;
+      line-height: 1.08;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .brand p, .muted {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .nav-group {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      transition: 0.2s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(24, 78, 119, 0.08);
+      border-color: rgba(24, 78, 119, 0.12);
+      color: var(--ink);
+    }
+
+    .sidebar-note {
+      margin-top: 28px;
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #f3eadf 0%, #fffdf8 100%);
+      border: 1px solid rgba(183, 121, 31, 0.14);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .content { padding: 32px; }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(24, 78, 119, 0.92), rgba(35, 66, 95, 0.92));
+      color: #f9fafb;
+      border-radius: 30px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -45% auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.98;
+      max-width: 10ch;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .hero p {
+      max-width: 65ch;
+      margin: 0 0 18px;
+      color: rgba(249, 250, 251, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .button.secondary { background: rgba(246, 241, 232, 0.14); }
+
+    .section { margin-top: 56px; scroll-margin-top: 28px; }
+
+    .topic-section {
+      position: relative;
+      padding: 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      box-shadow: 0 16px 38px rgba(70, 71, 74, 0.05);
+      overflow: hidden;
+    }
+
+    .topic-section::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 10px;
+      border-radius: 30px 30px 0 0;
+      background: var(--section-accent, var(--accent));
+    }
+
+    .topic-section::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -80px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--section-glow, rgba(24, 78, 119, 0.08));
+      pointer-events: none;
+    }
+
+    .theme-1-section {
+      --section-accent: var(--accent);
+      --section-glow: rgba(24, 78, 119, 0.09);
+      background: linear-gradient(180deg, rgba(223, 244, 255, 0.7), rgba(255, 253, 248, 0.96));
+    }
+
+    .theme-2-section {
+      --section-accent: var(--accent-2);
+      --section-glow: rgba(45, 106, 79, 0.09);
+      background: linear-gradient(180deg, rgba(233, 247, 239, 0.76), rgba(255, 253, 248, 0.96));
+    }
+
+    .theme-3-section {
+      --section-accent: var(--accent-3);
+      --section-glow: rgba(183, 121, 31, 0.1);
+      background: linear-gradient(180deg, rgba(255, 244, 214, 0.78), rgba(255, 253, 248, 0.96));
+    }
+
+    .theme-4-section {
+      --section-accent: var(--accent-4);
+      --section-glow: rgba(178, 58, 72, 0.09);
+      background: linear-gradient(180deg, rgba(253, 235, 236, 0.82), rgba(255, 253, 248, 0.96));
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      color: var(--ink);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--section-accent, var(--accent));
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55);
+    }
+
+    .section-header { margin-bottom: 16px; }
+    .section-header h3 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .section-header p { margin: 0; color: var(--muted); max-width: 70ch; }
+
+    .overview-grid, .card-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card, .route-step {
+      grid-column: span 12;
+      background: var(--paper);
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(70, 71, 74, 0.06);
+    }
+
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .card p { margin: 0; color: var(--muted); }
+
+    .theme-card { position: relative; overflow: hidden; }
+    .theme-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .theme-card.theme-1::before { background: var(--accent); }
+    .theme-card.theme-2::before { background: var(--accent-2); }
+    .theme-card.theme-3::before { background: var(--accent-3); }
+    .theme-card.theme-4::before { background: var(--accent-4); }
+
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--code-bg);
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .list-clean {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .list-clean li + li { margin-top: 8px; }
+
+    .memory-box {
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(24, 78, 119, 0.05), rgba(24, 78, 119, 0.02));
+      border: 1px solid rgba(24, 78, 119, 0.1);
+    }
+
+    .memory-box strong { display: block; margin-bottom: 8px; }
+
+    .code-block {
+      margin: 0;
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--code-bg);
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow: auto;
+      color: #2e3440;
+    }
+
+    .accordion { display: grid; gap: 14px; }
+    .accordion details {
+      background: var(--paper);
+      border-radius: 18px;
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      box-shadow: 0 8px 24px rgba(70, 71, 74, 0.05);
+      overflow: hidden;
+    }
+
+    .accordion summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .accordion summary::-webkit-details-marker { display: none; }
+    .accordion summary::after { content: "+"; font-size: 1.3rem; color: var(--muted); }
+    .accordion details[open] summary::after { content: "-"; }
+    .accordion .body { padding: 0 20px 20px; }
+
+    .diagram {
+      background: #fffdfa;
+      border: 1px solid rgba(79, 93, 117, 0.12);
+      border-radius: 18px;
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    .quick-table th, .quick-table td {
+      border-bottom: 1px solid rgba(79, 93, 117, 0.12);
+      padding: 11px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .quick-table th {
+      color: var(--ink);
+      background: rgba(24, 78, 119, 0.05);
+    }
+
+    .study-route {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .route-step { min-height: 124px; }
+    .route-step strong { display: block; margin-bottom: 8px; }
+
+    .footer {
+      margin: 36px 0 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(79, 93, 117, 0.12);
+      }
+      .study-route { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 800px) {
+      .content { padding: 18px; }
+      .hero { padding: 24px; }
+      .topic-section { padding: 20px; }
+      .span-3, .span-4, .span-5, .span-6, .span-7, .span-8 { grid-column: span 12; }
+      .two-col { grid-template-columns: 1fr; }
+      .study-route { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="eyebrow">Guia Visual</span>
+        <h1>Parcial 1<br>Ampliacio</h1>
+        <p>Resum visual, agrupat i pensat per estudiar sense ofegar-te.</p>
+      </div>
+
+      <nav class="nav-group">
+        <a class="nav-link" href="#inici">Inici</a>
+        <a class="nav-link" href="#mapa-global">Mapa Global</a>
+        <a class="nav-link" href="#tema1">Tema 1 - BDR</a>
+        <a class="nav-link" href="#tema2">Tema 2 - MongoDB</a>
+        <a class="nav-link" href="#tema3">Tema 3 - Distribuides</a>
+        <a class="nav-link" href="#tema4">Tema 4 - XML XPath</a>
+        <a class="nav-link" href="#preguntes">Preguntes</a>
+        <a class="nav-link" href="#ruta">Ruta d'estudi</a>
+      </nav>
+
+      <div class="sidebar-note">
+        Mira un sol bloc cada vegada. Si pots explicar-lo sense mirar, ja el tens. Si no, encara no s'ha de memoritzar: s'ha d'entendre.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero" id="inici">
+        <h2>Una chuleta interactiva, no un altre PDF dens.</h2>
+        <p>Aquesta pagina compacta el resum textual i els mapes visuals en una sola guia d'estudi. Cada tema te idea central, avantatges i inconvenients, comandes clau, errors frequents i un diagrama Mermaid per fixar-lo visualment.</p>
+        <div class="hero-actions">
+          <a class="button" href="#tema1">Comencar pel Tema 1</a>
+          <a class="button secondary" href="#mapa-global">Veure el mapa global</a>
+        </div>
+      </section>
+
+      <section class="section" id="mapa-global">
+        <div class="section-header">
+          <h3>Mapa Global</h3>
+          <p>Abans d'entrar al detall, queda't amb l'estructura grossa del parcial. Aquesta es la base que has de poder reproduir de memoria.</p>
+        </div>
+
+        <div class="overview-grid">
+          <article class="card theme-card theme-1 span-3">
+            <h4>Tema 1</h4>
+            <p>View, Function, Procedure, Trigger.</p>
+          </article>
+          <article class="card theme-card theme-2 span-3">
+            <h4>Tema 2</h4>
+            <p>SQL cap a MongoDB, CRUD, find, aggregate, lookup.</p>
+          </article>
+          <article class="card theme-card theme-3 span-3">
+            <h4>Tema 3</h4>
+            <p>Fragmentacio, regles de correccio i transparencies.</p>
+          </article>
+          <article class="card theme-card theme-4 span-3">
+            <h4>Tema 4</h4>
+            <p>noSQL general, XML, FOR XML i XPath.</p>
+          </article>
+
+          <article class="card span-12">
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    P["Parcial 1"]
+    P --> T1["Tema 1<br/>Optimitzacio de BDR"]
+    P --> T2["Tema 2<br/>SQL -> MongoDB"]
+    P --> T3["Tema 3<br/>BDD distribuides"]
+    P --> T4["Tema 4<br/>noSQL XML XPath"]
+    T1 --> T1A["View<br/>Function<br/>Procedure<br/>Trigger"]
+    T2 --> T2A["CRUD<br/>find<br/>aggregate<br/>$lookup"]
+    T3 --> T3A["Fragmentacio<br/>Regles<br/>Transparencia"]
+    T4 --> T4A["noSQL<br/>FOR XML<br/>XPath"]
+              </pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section topic-section theme-1-section" id="tema1">
+        <div class="section-header">
+          <span class="section-kicker">Tema 1</span>
+          <h3>Tema 1 - Optimitzacio de BDR</h3>
+          <p>Has de distingir molt clarament quina eina toca en cada situacio. Si aixo ho controles, la teoria d'aquest tema cau molt millor.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card span-5">
+            <h4>Idea central</h4>
+            <p>L'extensio procedimental afegeix a SQL capacitats de programacio estructurada per reutilitzar consultes, encapsular logica i reaccionar automaticament als canvis.</p>
+            <div class="chips">
+              <span class="chip">variables</span>
+              <span class="chip">condicionals</span>
+              <span class="chip">bucles</span>
+              <span class="chip">funcions</span>
+              <span class="chip">procediments</span>
+              <span class="chip">triggers</span>
+            </div>
+          </article>
+
+          <article class="card span-7">
+            <h4>Mapa de decisio</h4>
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    Q["Necessites fer..."] --> A{"Nomes consultar?"}
+    A -->|Si| B{"Cal passar<br/>parametres?"}
+    B -->|No| V["VIEW"]
+    B -->|Si| F["FUNCTION"]
+    A -->|No| C{"Ha de reaccionar<br/>automaticament?"}
+    C -->|No| P["PROCEDURE"]
+    C -->|Si| T["TRIGGER"]
+    T --> T1["INSTEAD OF"]
+    T --> T2["AFTER"]
+              </pre>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Avantatges</h4>
+            <ul class="list-clean">
+              <li>reutilitzacio de codi</li>
+              <li>millor manteniment</li>
+              <li>mes seguretat</li>
+              <li>millor rendiment si la logica s'executa al SGBD</li>
+              <li>automatitzacio de validacions i camps calculats</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>Inconvenients o limits</h4>
+            <ul class="list-clean">
+              <li>la sintaxi varia segons el SGBD</li>
+              <li>les vistes tenen restriccions</li>
+              <li>massa triggers compliquen el manteniment</li>
+              <li>si tota la logica queda al servidor, costa mes depurar</li>
+            </ul>
+          </article>
+
+          <article class="card span-12">
+            <h4>Sintaxi clau</h4>
+            <div class="two-col">
+              <pre class="code-block">CREATE VIEW v_alumnes AS
+SELECT nom, cognoms
+FROM alumnes;</pre>
+              <pre class="code-block">CREATE FUNCTION f_alumnes_grau(@grau VARCHAR(100))
+RETURNS TABLE
+AS
+RETURN (
+  SELECT * FROM alumnes
+  WHERE grau = @grau
+);</pre>
+            </div>
+            <div class="two-col" style="margin-top:16px;">
+              <pre class="code-block">CREATE PROCEDURE sp_exemple(@dni CHAR(9))
+AS
+BEGIN
+  DELETE FROM alumnes
+  WHERE dni = @dni;
+END;</pre>
+              <pre class="code-block">CREATE TRIGGER trg_exemple
+ON alumnes
+AFTER INSERT
+AS
+BEGIN
+  PRINT('Nou alumne');
+END;</pre>
+            </div>
+          </article>
+
+          <article class="card span-12">
+            <div class="memory-box">
+              <strong>Frase per memoritzar</strong>
+              <span class="muted">view consulta, function retorna, procedure actua, trigger reacciona</span>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Variables, IF, WHILE i errors</h4>
+            <pre class="code-block">DECLARE @x INT;
+SET @x = 10;
+
+IF @x > 5
+BEGIN
+  PRINT('gran');
+END
+ELSE
+BEGIN
+  PRINT('petit');
+END;
+
+WHILE @x > 0
+BEGIN
+  SET @x = @x - 1;
+END;</pre>
+          </article>
+
+          <article class="card span-6">
+            <h4>Limits importants de vistes i funcions</h4>
+            <ul class="list-clean">
+              <li>una <strong>VIEW</strong> no accepta parametres</li>
+              <li>si hi ha <strong>COUNT</strong>, <strong>AVG</strong> o camps calculats, cal alias</li>
+              <li><strong>ORDER BY</strong> dins d'una vista te restriccions</li>
+              <li>les <strong>FUNCTION</strong> del temari funcionen com una vista amb parametres</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>Procediments i RAISERROR</h4>
+            <pre class="code-block">RAISERROR('text_error', 16, 1);
+RETURN;
+
+EXEC sp_exemple '12345678A';</pre>
+            <p style="margin-top:14px;" class="muted">`RAISERROR` mostra un error; `RETURN` talla l'execucio si cal.</p>
+          </article>
+
+          <article class="card span-6">
+            <h4>Triggers: que no pots oblidar</h4>
+            <ul class="list-clean">
+              <li><strong>INSTEAD OF</strong>: substitueix la instruccio</li>
+              <li><strong>AFTER</strong>: s'executa despres</li>
+              <li>treballen amb les taules virtuals <strong>inserted</strong> i <strong>deleted</strong></li>
+              <li>son molt utils per validar dades i recalcular redundancies</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section topic-section theme-2-section" id="tema2">
+        <div class="section-header">
+          <span class="section-kicker">Tema 2</span>
+          <h3>Tema 2 - SQL cap a MongoDB</h3>
+          <p>A classe heu treballat sobretot la migracio del model relacional cap a un model documental. La clau es pensar sempre en l'equivalencia SQL -> collection/document.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card span-6">
+            <h4>Idea central</h4>
+            <p>MongoDB es documental. Guarda la informacio en documents JSON/BSON dins de col.leccions. Va be quan necessites flexibilitat, dades heterogenies i escalabilitat horitzontal.</p>
+            <div class="chips">
+              <span class="chip">esquema flexible</span>
+              <span class="chip">consultes rapides</span>
+              <span class="chip">escalabilitat horitzontal</span>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Equivalencies SQL vs MongoDB</h4>
+            <table class="quick-table">
+              <thead>
+                <tr><th>SQL</th><th>MongoDB</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>taula</td><td>collection</td></tr>
+                <tr><td>fila</td><td>document</td></tr>
+                <tr><td>columna</td><td>field</td></tr>
+                <tr><td>JOIN</td><td>$lookup</td></tr>
+                <tr><td>SELECT</td><td>find o aggregate</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card span-7">
+            <h4>ACT1 ex. 1 - Passar d'una taula SQL a MongoDB</h4>
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    A["BD relacional"] --> B["use('Hotel')"]
+    B --> C["cada taula -> collection"]
+    C --> D["cada fila -> document"]
+    D --> E["cada columna -> field"]
+    E --> F["insertOne / insertMany"]
+              </pre>
+            </div>
+          </article>
+
+          <article class="card span-5">
+            <h4>Exemple basic</h4>
+            <pre class="code-block">use("Hotel");
+
+db.ciutat.insertOne({
+  nom: "Barcelona",
+  nHabitants: 2000000,
+  port: "Si"
+});</pre>
+          </article>
+
+          <article class="card span-6">
+            <h4>Avantatges</h4>
+            <ul class="list-clean">
+              <li>esquema flexible</li>
+              <li>facil afegir camps nous</li>
+              <li>molt bo amb dades semiestructurades</li>
+              <li>mes facil de distribuir</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>Inconvenients</h4>
+            <ul class="list-clean">
+              <li>mes redundancia</li>
+              <li>consistencia menys estricta</li>
+              <li>no hi ha claus foranies enforced com a SQL</li>
+              <li>consultes complexes es pensen diferent</li>
+            </ul>
+          </article>
+
+          <article class="card span-12">
+            <h4>Com decidir la comanda</h4>
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    Q["Vols consultar"] --> A{"Nomes filtres i projeccio?"}
+    A -->|Si| F["find / findOne"]
+    A -->|No| B{"Hi ha group by, calculs o joins?"}
+    B -->|Si| AG["aggregate"]
+    B -->|No| F
+    AG --> L["$lookup"]
+    L --> U["$unwind si cal desplegar arrays"]
+              </pre>
+            </div>
+          </article>
+
+          <article class="card span-4">
+            <h4>CRUD</h4>
+            <div class="chips">
+              <span class="chip">insertOne</span>
+              <span class="chip">insertMany</span>
+              <span class="chip">updateOne</span>
+              <span class="chip">updateMany</span>
+              <span class="chip">deleteOne</span>
+              <span class="chip">deleteMany</span>
+            </div>
+          </article>
+
+          <article class="card span-4">
+            <h4>Operadors clau</h4>
+            <div class="chips">
+              <span class="chip">$gt $lt $gte $lte</span>
+              <span class="chip">$in $nin</span>
+              <span class="chip">$or $and</span>
+              <span class="chip">$regex</span>
+            </div>
+          </article>
+
+          <article class="card span-4">
+            <h4>Pipeline tipica</h4>
+            <div class="chips">
+              <span class="chip">$match</span>
+              <span class="chip">$sort</span>
+              <span class="chip">$group</span>
+              <span class="chip">$project</span>
+              <span class="chip">$limit</span>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>DDL i DML a MongoDB</h4>
+            <ul class="list-clean">
+              <li>als apunts no hi ha un <strong>DDL fix</strong> com a SQL</li>
+              <li>les col.leccions i els camps apareixen quan hi insereixes dades</li>
+              <li>la part operativa forta es el <strong>DML</strong>: inserir, modificar, eliminar i consultar</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>SQL -> Mongo per condicions frequents</h4>
+            <div class="two-col">
+              <pre class="code-block">BETWEEN
+{ camp: { $gte: a, $lte: b } }
+
+IN
+{ camp: { $in: [v1, v2] } }</pre>
+              <pre class="code-block">LIKE
+{ nom: { $regex: ".*ona" } }
+
+ORDER BY / LIMIT
+.sort({ camp: 1 }).limit(10)</pre>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Agregacions que solen caure</h4>
+            <div class="chips">
+              <span class="chip">$count</span>
+              <span class="chip">$sum</span>
+              <span class="chip">$avg</span>
+              <span class="chip">$max</span>
+              <span class="chip">$min</span>
+              <span class="chip">distinct</span>
+            </div>
+            <p style="margin-top:14px;" class="muted">Si has de comptar, sumar, fer mitjana o agrupar, gairebe segur que toca `aggregate`.</p>
+          </article>
+
+          <article class="card span-6">
+            <h4>JOIN i UNION equivalents</h4>
+            <ul class="list-clean">
+              <li><strong>$lookup</strong>: equivalent conceptual de `JOIN`</li>
+              <li><strong>$unwind</strong>: desplega arrays retornats pel lookup</li>
+              <li><strong>$unionWith</strong>: equivalent conceptual de `UNION`</li>
+            </ul>
+            <pre class="code-block">{
+  $lookup: {
+    from: "empresa",
+    localField: "nom",
+    foreignField: "seuSocial",
+    as: "dadesEmpresa"
+  }
+}</pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="section topic-section theme-3-section" id="tema3">
+        <div class="section-header">
+          <span class="section-kicker">Tema 3</span>
+          <h3>Tema 3 - Bases de dades distribuides</h3>
+          <p>Aquest tema sembla llarg, pero realment gira sobretot al voltant de dues idees: fragmentacio i transparencia.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card span-6">
+            <h4>Idea central</h4>
+            <p>Una BDD distribuida es una sola base de dades repartida entre diversos nodes. Idealment, l'usuari no hauria de notar que esta distribuida.</p>
+          </article>
+
+          <article class="card span-6">
+            <h4>Tipus</h4>
+            <ul class="list-clean">
+              <li><strong>Top-Down</strong>: es dissenya des de zero i despres es distribueix.</li>
+              <li><strong>Bottom-Up</strong>: s'integra el que ja existeix.</li>
+            </ul>
+          </article>
+
+          <article class="card span-7">
+            <h4>Fragmentacio</h4>
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    F["Fragmentacio"] --> H["Horitzontal"]
+    H --> H1["Primaria<br/>condicio sobre la mateixa taula"]
+    H --> H2["Derivada<br/>condicio sobre taula relacionada"]
+    F --> V["Vertical<br/>divideix atributs"]
+    V --> PK["clau primaria a tots els fragments verticals"]
+    F --> M["Mixta"]
+    M --> M1["HV<br/>horitzontal i despres vertical"]
+    M --> M2["VH<br/>vertical i despres horitzontal"]
+    M --> M3["En celles<br/>horitzontal i vertical alhora"]
+    F --> R["Regles"]
+    R --> R1["Completesa"]
+    R --> R2["Disjuntivitat"]
+    R --> R3["Reconstruccio"]
+              </pre>
+            </div>
+          </article>
+
+          <article class="card span-5">
+            <h4>Les 3 paraules que has de dir sempre</h4>
+            <div class="chips">
+              <span class="chip">completesa</span>
+              <span class="chip">disjuntivitat</span>
+              <span class="chip">reconstruccio</span>
+            </div>
+            <p style="margin-top:14px;" class="muted">Si et pregunten un esquema de fragmentacio i no justifiques aquestes tres, la resposta queda coixa.</p>
+          </article>
+
+          <article class="card span-4">
+            <h4>Horitzontal</h4>
+            <ul class="list-clean">
+              <li><strong>Primaria</strong>: la condicio es sobre un atribut de la mateixa taula.</li>
+              <li><strong>Derivada</strong>: la condicio es sobre una taula relacionada.</li>
+              <li>La reconstruccio es fa amb <strong>UNION</strong>.</li>
+            </ul>
+          </article>
+
+          <article class="card span-4">
+            <h4>Vertical</h4>
+            <ul class="list-clean">
+              <li>Divideix la taula per atributs.</li>
+              <li>La clau primaria ha d'apareixer a tots els fragments.</li>
+              <li>La reconstruccio es fa amb <strong>JOIN</strong>.</li>
+            </ul>
+          </article>
+
+          <article class="card span-4">
+            <h4>Mixta</h4>
+            <div class="chips">
+              <span class="chip">HV</span>
+              <span class="chip">VH</span>
+              <span class="chip">en celles</span>
+            </div>
+            <p style="margin-top:14px;" class="muted">Combina fragmentacio horitzontal i vertical. En l'examen sol caure quan hi ha criteris de ciutat, perfil, departament o tipus d'usuari alhora.</p>
+          </article>
+
+          <article class="card span-12">
+            <h4>Com es reconstrueix la taula original</h4>
+            <div class="two-col">
+              <div class="memory-box">
+                <strong>Si la fragmentacio es horitzontal</strong>
+                <span class="muted">reconstruccio amb <strong>UNION</strong> entre fragments</span>
+              </div>
+              <div class="memory-box">
+                <strong>Si la fragmentacio es vertical</strong>
+                <span class="muted">reconstruccio amb <strong>JOIN</strong> per la clau primaria</span>
+              </div>
+            </div>
+            <div class="memory-box" style="margin-top:16px;">
+              <strong>Si la fragmentacio es mixta</strong>
+              <span class="muted">normalment fas primer les reconstruccions locals de les fulles i al final combines <strong>UNION</strong> i <strong>JOIN</strong></span>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Avantatges</h4>
+            <ul class="list-clean">
+              <li>dades mes a prop d'on s'utilitzen</li>
+              <li>millor disponibilitat</li>
+              <li>mes fiabilitat</li>
+              <li>paral.lelisme</li>
+              <li>facilitat d'expansio</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>Inconvenients</h4>
+            <ul class="list-clean">
+              <li>mes complexitat</li>
+              <li>consultes mes lentes per la xarxa</li>
+              <li>problemes de consistencia i replicacio</li>
+              <li>transaccions distribuides mes dificils</li>
+            </ul>
+          </article>
+
+          <article class="card span-12">
+            <h4>Transparencia</h4>
+            <div class="diagram">
+              <pre class="mermaid">
+flowchart TD
+    T["Transparencia"] --> T1["Fragmentacio<br/>veu la taula global"]
+    T --> T2["Ubicacio<br/>coneix fragments, no nodes"]
+    T --> T3["SGBD local<br/>coneix fragments i nodes"]
+    T --> T4["No transparencia<br/>l'usuari ho ha de saber tot"]
+    T1 --> A["mes facil per l'usuari"]
+    T3 --> B["mes feina per l'usuari"]
+    T4 --> C["maxima carrega per l'usuari"]
+              </pre>
+            </div>
+          </article>
+
+          <article class="card span-6">
+            <h4>Replicacio i consistencia</h4>
+            <ul class="list-clean">
+              <li>La replicacio millora disponibilitat i seguretat.</li>
+              <li>El problema principal es actualitzar copies sense inconsistencies.</li>
+              <li><strong>Consistencia immediata</strong>: totes les copies s'actualitzen al moment.</li>
+              <li><strong>Consistencia diferida</strong>: les copies s'actualitzen mes tard.</li>
+            </ul>
+          </article>
+
+          <article class="card span-6">
+            <h4>Processament i transaccions</h4>
+            <ul class="list-clean">
+              <li><strong>GQP</strong>: processador global de consultes.</li>
+              <li><strong>LQP</strong>: processador local de cada node.</li>
+              <li>El sistema calcula cost de subconsultes i cost de xarxa.</li>
+              <li><strong>2PC</strong>: protocol Two-Phase Commit per coordinar transaccions distribuides.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section topic-section theme-4-section" id="tema4">
+        <div class="section-header">
+          <span class="section-kicker">Tema 4</span>
+          <h3>Tema 4 - noSQL general, XML i XPath</h3>
+          <p>Aqui hi ha dues meitats diferents: la teoria general de noSQL i la part de transformacio relacional cap a XML amb consultes XPath.</p>
+        </div>
+
+        <div class="accordion">
+          <details open>
+            <summary>Part A - noSQL general</summary>
+            <div class="body">
+              <div class="card-grid">
+                <article class="card span-6">
+                  <h4>Caracteristiques</h4>
+                  <div class="chips">
+                    <span class="chip">model flexible</span>
+                    <span class="chip">escalabilitat horitzontal</span>
+                    <span class="chip">alt rendiment</span>
+                    <span class="chip">alta disponibilitat</span>
+                    <span class="chip">consistencia eventual</span>
+                  </div>
+                </article>
+                <article class="card span-6">
+                  <div class="diagram">
+                    <pre class="mermaid">
+flowchart TD
+    N["noSQL"] --> N1["Model flexible"]
+    N --> N2["Escalabilitat horitzontal"]
+    N --> N3["Alt rendiment"]
+    N --> N4["Alta disponibilitat"]
+    N --> N5["Consistencia eventual"]
+                    </pre>
+                  </div>
+                </article>
+                <article class="card span-6">
+                  <h4>Avantatges</h4>
+                  <ul class="list-clean">
+                    <li>millor per dades heterogenies</li>
+                    <li>creix facilment afegint nodes</li>
+                    <li>consultes molt rapides</li>
+                    <li>bona tolerancia a errades</li>
+                  </ul>
+                </article>
+                <article class="card span-6">
+                  <h4>Inconvenients</h4>
+                  <ul class="list-clean">
+                    <li>redundancia</li>
+                    <li>consistencia menys estricta</li>
+                    <li>pitjor ajust per aplicacions molt transaccionals</li>
+                  </ul>
+                </article>
+
+                <article class="card span-12">
+                  <h4>Tipus de BBDD noSQL</h4>
+                  <div class="chips">
+                    <span class="chip">clau-valor</span>
+                    <span class="chip">documentals</span>
+                    <span class="chip">grafs</span>
+                    <span class="chip">orientades a objectes</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Part B - SQL cap a XML</summary>
+            <div class="body">
+              <div class="card-grid">
+                <article class="card span-6">
+                  <h4>Idea central</h4>
+                  <p>XML serveix per integrar dades entre sistemes heterogenis. En el vostre ACT2, l'arbre es <code>hotel -> usuari -> client -> reserva -> habitacio</code>.</p>
+                  <div class="diagram" style="margin-top:16px;">
+                    <pre class="mermaid">
+flowchart TD
+    H["hotel"] --> U["usuari"]
+    U --> C["client"]
+    C --> R["reserva"]
+    R --> HB["habitacio"]
+                    </pre>
+                  </div>
+                </article>
+
+                <article class="card span-6">
+                  <h4>Regles basiques de XML</h4>
+                  <ul class="list-clean">
+                    <li>ha de tenir node arrel</li>
+                    <li>tots els nodes s'han de tancar</li>
+                    <li>han d'estar ben niuats</li>
+                    <li>XML diferencia majuscules i minuscules</li>
+                    <li>els atributs han de tenir valor</li>
+                    <li>els valors van entre cometes</li>
+                  </ul>
+                </article>
+
+                <article class="card span-6">
+                  <h4>Versio, codificacio i caracters especials</h4>
+                  <ul class="list-clean">
+                    <li>als apunts surt tipicament <strong>XML 1.0</strong> amb <strong>UTF-8</strong></li>
+                    <li>al vostre ACT2 es demana explicitament <strong>XML 2.0</strong> amb <strong>UTF-8</strong></li>
+                    <li><code>&lt;</code> -> <code>&amp;lt;</code></li>
+                    <li><code>&gt;</code> -> <code>&amp;gt;</code></li>
+                    <li><code>&amp;</code> -> <code>&amp;amp;</code></li>
+                  </ul>
+                </article>
+
+                <article class="card span-12">
+                  <h4>FOR XML - RAW, AUTO, PATH</h4>
+                  <div class="diagram">
+                    <pre class="mermaid">
+flowchart TD
+    SQL["Dades SQL"] --> X["FOR XML"]
+    X --> RAW["RAW<br/>cada fila = row"]
+    X --> AUTO["AUTO<br/>jerarquia automatica segons JOIN"]
+    X --> PATH["PATH<br/>control total"]
+    PATH --> P1["@alias -> atribut"]
+    PATH --> P2["alias normal -> element"]
+    X --> E["ELEMENTS"]
+    X --> R["ROOT('nom')"]
+                    </pre>
+                  </div>
+                </article>
+
+                <article class="card span-4">
+                  <h4>RAW</h4>
+                  <p class="muted">Cada fila del resultat es converteix en un <code>row</code>. Va be per exportacio simple.</p>
+                  <pre class="code-block">SELECT ...
+FOR XML RAW;</pre>
+                </article>
+
+                <article class="card span-4">
+                  <h4>AUTO</h4>
+                  <p class="muted">La jerarquia surt de l'ordre del FROM i els JOIN. Tens control limitat.</p>
+                  <pre class="code-block">SELECT ...
+FOR XML AUTO;</pre>
+                </article>
+
+                <article class="card span-4">
+                  <h4>PATH</h4>
+                  <p class="muted">La important per examen. Decideixes noms de nodes i atributs.</p>
+                  <pre class="code-block">SELECT codi AS '@codi'
+FOR XML PATH('node');</pre>
+                </article>
+
+                <article class="card span-12">
+                  <h4>Opcions addicionals que has de saber</h4>
+                  <div class="two-col">
+                    <pre class="code-block">ELEMENTS
+SELECT ...
+FOR XML RAW, ELEMENTS;</pre>
+                    <pre class="code-block">ROOT
+SELECT ...
+FOR XML AUTO, ROOT('hotel');</pre>
+                  </div>
+                  <p style="margin-top:14px;" class="muted">`ELEMENTS` converteix camps en elements; `ROOT('nom')` afegeix el node arrel.</p>
+                </article>
+
+                <article class="card span-12">
+                  <h4>Patro per construir XML jerarquic</h4>
+                  <pre class="code-block">SELECT ...
+(
+  SELECT ...
+  (
+    SELECT ...
+    FOR XML PATH('reserva'), TYPE
+  )
+  FOR XML PATH('client'), TYPE
+)
+FOR XML PATH('usuari'), ROOT('hotel');</pre>
+                </article>
+              </div>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Part C - XPath</summary>
+            <div class="body">
+              <div class="card-grid">
+                <article class="card span-7">
+                  <h4>Mapa XPath</h4>
+                  <div class="diagram">
+                    <pre class="mermaid">
+flowchart TD
+    X["XPath"] --> X1["//node"]
+    X --> X2["@atribut"]
+    X --> X3["[condicio]"]
+    X --> X4[".."]
+    X --> F["Funcions"]
+    F --> F1["count"]
+    F --> F2["sum"]
+    F --> F3["avg"]
+    F --> F4["max / min"]
+    F --> F5["distinct-values"]
+    F --> F6["contains"]
+                    </pre>
+                  </div>
+                </article>
+
+                <article class="card span-5">
+                  <h4>Com pensar una consulta</h4>
+                  <ol class="list-clean">
+                    <li>situa't al node on hi ha la condicio</li>
+                    <li>aplica la condicio</li>
+                    <li>selecciona els atributs que vols</li>
+                    <li>puja o baixa per l'arbre si cal</li>
+                  </ol>
+                </article>
+
+                <article class="card span-6">
+                  <h4>Expressions basiques</h4>
+                  <div class="chips">
+                    <span class="chip">//node</span>
+                    <span class="chip">//node/fill</span>
+                    <span class="chip">//node/..</span>
+                    <span class="chip">//node/@atribut</span>
+                    <span class="chip">//node/@*</span>
+                  </div>
+                </article>
+
+                <article class="card span-6">
+                  <h4>Equivalencies mentals amb SQL</h4>
+                  <ul class="list-clean">
+                    <li><strong>distinct-values</strong> fa el paper de `DISTINCT`</li>
+                    <li><strong>contains</strong> fa el paper de `LIKE`</li>
+                    <li><strong>@att = (v1, v2)</strong> fa el paper de `IN`</li>
+                    <li><strong>count / avg / sum / max / min</strong> son les agregacions tipiques</li>
+                  </ul>
+                </article>
+
+                <article class="card span-12">
+                  <h4>Patrons que s'han de saber</h4>
+                  <div class="two-col">
+                    <pre class="code-block">//habitacio/@codi
+count(//reserva)
+avg(//reserva/@preuTotal)</pre>
+                    <pre class="code-block">distinct-values(//habitacio/@codi)
+//reserva[@estat="realitzada"]/@numReserva
+//node[contains(@camp,"text")]</pre>
+                  </div>
+                </article>
+
+                <article class="card span-12">
+                  <h4>Altres patrons utiles</h4>
+                  <div class="two-col">
+                    <pre class="code-block">//node[@att = ("A", "B")]/@att
+//node[@preu &gt; 100]/@codi</pre>
+                    <pre class="code-block">//node[@att = max(//node/@att)]/@nom
+//node[@x and @y]/@*</pre>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="preguntes">
+        <div class="section-header">
+          <h3>Preguntes que has de poder respondre</h3>
+          <p>Si pots contestar aquestes sense mirar, ja tens el parcial forca ben orientat.</p>
+        </div>
+
+        <div class="card">
+          <div class="chips">
+            <span class="chip">Quina diferencia hi ha entre view, function, procedure i trigger?</span>
+            <span class="chip">Com es passa d'una taula SQL a una collection MongoDB?</span>
+            <span class="chip">Quan faries servir find i quan aggregate?</span>
+            <span class="chip">Que fa $lookup? I $unwind?</span>
+            <span class="chip">Que es FOR XML RAW, AUTO i PATH?</span>
+            <span class="chip">Per que PATH es el mes util?</span>
+            <span class="chip">Quines son les 3 regles de la fragmentacio?</span>
+            <span class="chip">Diferencia entre transparencia de fragmentacio i d'ubicacio?</span>
+            <span class="chip">Que fa distinct-values() a XPath?</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ruta">
+        <div class="section-header">
+          <h3>Ruta d'estudi</h3>
+          <p>No intentis estudiar-ho tot de cop. Fes una ruta curta i repetible.</p>
+        </div>
+
+        <div class="study-route">
+          <article class="route-step"><strong>1. Mapa global</strong><span class="muted">Situa els 4 temes.</span></article>
+          <article class="route-step"><strong>2. Tema 1</strong><span class="muted">Apren la diferencia entre objectes SQL.</span></article>
+          <article class="route-step"><strong>3. Tema 2</strong><span class="muted">Pensa sempre en equivalencies SQL -> Mongo.</span></article>
+          <article class="route-step"><strong>4. Tema 3</strong><span class="muted">Memoritza les 3 regles i les transparencies.</span></article>
+          <article class="route-step"><strong>5. Tema 4</strong><span class="muted">Separa noSQL general, XML i XPath.</span></article>
+          <article class="route-step"><strong>6. Preguntes</strong><span class="muted">Resposta en veu alta sense mirar.</span></article>
+          <article class="route-step"><strong>7. Exercicis</strong><span class="muted">2 o 3 per fixar-ho.</span></article>
+        </div>
+      </section>
+
+      <p class="footer">Nota: els diagrames Mermaid es renderitzen amb la llibreria oficial carregada des de CDN. Si obres el fitxer sense connexio, la resta del contingut es continuara veient igual.</p>
+    </main>
+  </div>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#fefcf7',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#43566f',
+        lineColor: '#617187',
+        secondaryColor: '#ecf4fb',
+        tertiaryColor: '#f3eee5',
+        fontFamily: 'Aptos, Trebuchet MS, sans-serif'
+      },
+      flowchart: {
+        curve: 'basis',
+        nodeSpacing: 30,
+        rankSpacing: 40,
+        padding: 14
+      }
+    });
+  </script>
+</body>
+</html>
